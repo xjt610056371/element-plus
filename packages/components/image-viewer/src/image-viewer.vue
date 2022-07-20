@@ -61,18 +61,35 @@
         </div>
         <!-- CANVAS -->
         <div :class="ns.e('canvas')">
-          <img
-            v-for="(url, i) in urlList"
-            v-show="i === index"
-            :ref="(el) => (imgRefs[i] = el as HTMLImageElement)"
-            :key="url"
-            :src="url"
-            :style="imgStyle"
-            :class="ns.e('img')"
-            @load="handleImgLoad"
-            @error="handleImgError"
-            @mousedown="handleMouseDown"
-          />
+          <template v-for="(url, i) in urlList" :key="url">
+            <img
+              v-if="
+                url.includes('.jpg') ||
+                url.includes('.jpeg') ||
+                url.includes('.png')
+              "
+              v-show="i === index"
+              :ref="(el) => (imgRefs[i] = el as HTMLImageElement)"
+              :src="url"
+              :style="imgStyle"
+              :class="ns.e('img')"
+              @load="handleImgLoad"
+              @error="handleImgError"
+              @mousedown="handleMouseDown"
+            />
+            <iframe
+              v-else
+              v-show="i === index"
+              :ref="(el) => (imgRefs[i] = el as HTMLImageElement)"
+              :src="url"
+              :style="imgStyle"
+              :class="ns.e('img')"
+              width="100%"
+              height="100%"
+              @load="handleImgLoad"
+              @error="handleImgError"
+            />
+          </template>
         </div>
         <slot />
       </div>
