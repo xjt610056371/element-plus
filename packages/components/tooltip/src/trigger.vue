@@ -22,6 +22,7 @@ import { defineComponent, inject, ref, toRef, unref } from 'vue'
 import { ElPopperTrigger } from '@element-plus/components/popper'
 import { composeEventHandlers } from '@element-plus/utils'
 import { useNamespace } from '@element-plus/hooks'
+import { EVENT_CODE } from '@element-plus/constants'
 import { TOOLTIP_INJECTION_KEY } from './tokens'
 import { useTooltipTriggerProps } from './tooltip'
 import { whenTrigger } from './utils'
@@ -61,7 +62,8 @@ export default defineComponent({
       whenTrigger(trigger, 'click', (e) => {
         // distinguish left click
         if ((e as MouseEvent).button === 0) {
-          onToggle(e)
+          // 有时候鼠标左键单击下拉面板会被关掉，可能原作者想法是右键关闭但是写反了
+          // onToggle(e)
         }
       })
     )
@@ -89,6 +91,9 @@ export default defineComponent({
       (e: KeyboardEvent) => {
         const { code } = e
         if (props.triggerKeys.includes(code)) {
+          // 作者原想法是空格选中，但是与我们的打字方式空格确定冲突了
+          if (code == EVENT_CODE.space) return
+
           e.preventDefault()
           onToggle(e)
         }
