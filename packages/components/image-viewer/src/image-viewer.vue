@@ -11,7 +11,9 @@
 
         <!-- CLOSE -->
         <span :class="[ns.e('btn'), ns.e('close')]" @click="hide">
-          <el-icon><Close /></el-icon>
+          <el-icon>
+            <Close />
+          </el-icon>
         </span>
 
         <!-- ARROW -->
@@ -24,7 +26,9 @@
             ]"
             @click="prev"
           >
-            <el-icon><ArrowLeft /></el-icon>
+            <el-icon>
+              <ArrowLeft />
+            </el-icon>
           </span>
           <span
             :class="[
@@ -34,7 +38,9 @@
             ]"
             @click="next"
           >
-            <el-icon><ArrowRight /></el-icon>
+            <el-icon>
+              <ArrowRight />
+            </el-icon>
           </span>
         </template>
         <!-- ACTIONS -->
@@ -46,11 +52,14 @@
             <el-icon @click="handleActions('zoomIn')">
               <ZoomIn />
             </el-icon>
-            <i :class="ns.e('actions__divider')" />
+            <!-- <i :class="ns.e('actions__divider')" /> -->
             <el-icon @click="toggleMode">
               <component :is="mode.icon" />
             </el-icon>
-            <i :class="ns.e('actions__divider')" />
+            <el-icon @click="downloadFile">
+              <Download />
+            </el-icon>
+            <!-- <i :class="ns.e('actions__divider')" /> -->
             <el-icon @click="handleActions('anticlockwise')">
               <RefreshLeft />
             </el-icon>
@@ -118,6 +127,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Close,
+  Download,
   FullScreen,
   RefreshLeft,
   RefreshRight,
@@ -333,6 +343,10 @@ function toggleMode() {
   const nextIndex = (index + 1) % modeNames.length
   mode.value = modes[modeNames[nextIndex]]
   reset()
+}
+
+function downloadFile() {
+  emit('download')
 }
 
 function prev() {

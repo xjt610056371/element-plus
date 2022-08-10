@@ -33,6 +33,7 @@
         :hide-on-click-modal="hideOnClickModal"
         :teleported="previewTeleported"
         :close-on-press-escape="closeOnPressEscape"
+        v-bind="$attrs"
         @close="closeViewer"
         @switch="switchViewer"
       >

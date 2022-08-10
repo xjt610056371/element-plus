@@ -44,6 +44,7 @@ export const imageViewerProps = buildProps({
 export type ImageViewerProps = ExtractPropTypes<typeof imageViewerProps>
 
 export const imageViewerEmits = {
+  download: () => true,
   close: () => true,
   switch: (index: number) => isNumber(index),
 }
