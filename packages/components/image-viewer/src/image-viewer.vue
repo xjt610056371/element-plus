@@ -346,7 +346,7 @@ function toggleMode() {
 }
 
 function downloadFile() {
-  emit('download')
+  emit('download', index.value)
 }
 
 function prev() {
